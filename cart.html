@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Nike Run Shop | Shopping Cart</title>
+        <link rel="stylesheet" href="./styles.css">
+    </head>
+    <body>
+        <section id="cart-table-section">
+            <table class="cart-table">
+                <tbody>
+                    <tr class="cart-table-header">
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <td>Shoe 1</td>
+                        <td>$19.99</td>
+                        <td>1 <a href="#">update</a></td>
+                        <td>$19.99</td>
+                    </tr>
+                    <tr>
+                        <td>Shoe 2</td>
+                        <td>$30.99</td>
+                        <td>1 <a href="#">update</a></td>
+                        <td>$19.99</td>
+                    </tr>
+                </tbody>
+            </table>
+           <div>
+               <span>Total: $49.96</span>
+               <a href="#">Continue Shopping</a>
+           </div>
+        </section>
+        <section id="cart-form-section">
+            <!----
+            <header id="validation-header">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %} 
+                        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </header>
+            -->
+            <form action="#" method="POST">
+                <!--{% csrf_token %}-->
+                <h3>Shipping Information</h3>
+                <div>
+                    <label for="sfname">First Name</label>
+                    <input type="text" name="sfname" size="15">
+                </div>
+                <div>
+                    <label for="slname">Last Name</label>
+                    <input type="text" name="slname" size="15">
+                </div>
+                <div>
+                    <label for="saddr1">Address</label>
+                    <input type="text" name="saddr1" size="15">
+                </div>
+                <div>
+                    <label for="saddr2">Address 2</label>
+                    <input type="text" name="saddr2" size="15">
+                </div>
+                <div>
+                    <label for="scity">City</label>
+                    <input type="text" name="scity" size="15">
+                </div>
+                <div>
+                    <label for="sstate">State</label>
+                    <input type="text" name="sstate" size="15">
+                </div>
+                <div>
+                    <label for="szipcode">Zip Code</label>
+                    <input type="text" name="szipcode" size="15">
+                </div>
+                <h3>Billing Information</h3>
+                <div>
+                    <input type="checkbox" name="sameaddr">
+                    <label for="sameaddr">Same as Shipping</label>
+                </div>
+                <div>
+                    <label for="bfname">First Name</label>
+                    <input type="text" name="bfname" size="15">
+                </div>
+                <div>
+                    <label for="blname">Last Name</label>
+                    <input type="text" name="blname" size="15">
+                </div>
+                <div>
+                    <label for="baddr1">Address</label>
+                    <input type="text" name="baddr1" size="15">
+                </div>
+                <div>
+                    <label for="baddr2">Address 2</label>
+                    <input type="text" name="baddr2" size="15">
+                </div>
+                <div>
+                    <label for="bcity">City</label>
+                    <input type="text" name="bcity" size="15">
+                </div>
+                <div>
+                    <label for="bstate">State</label>
+                    <input type="text" name="bstate" size="15">
+                </div>
+                <div>
+                    <label for="bzipcode">Zip Code</label>
+                    <input type="text" name="bzipcode" size="15">
+                </div>
+                <div>
+                    <label for="bcard">Card</label>
+                    <input type="text" name="bcard" size="15">
+                </div>
+                <div>
+                    <label for="bcode">Security Code</label>
+                    <input type="text" name="bcode" size="15">
+                </div>
+                <div>
+                    <label for="bexpire">Expiration</label>
+                    <input type="date" name="bexpire" size="15">
+                </div>
+                <div>
+                    <input type="submit" value="Pay" class="cart-pay-btn">
+                </div>
+            </form> 
+        </section>
+    </body>
+</html>

@@ -7,3 +7,5 @@ Product: Running shoes (Mens, Womens, Boys and Girls).
 Image Specs (from original images):
   - Dimensions: 592 x 592
   - Size: ~ 20kb
+  - Images stored in db and accessed via django template
+  

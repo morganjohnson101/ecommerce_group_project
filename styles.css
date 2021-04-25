@@ -2,6 +2,12 @@
     margin: 0px;
     padding: 0px;
 }
+.container {
+    background-color: white;
+}
+.cart-container {
+    padding: 30pt;
+}
 table {
     width: 100%;
     border-collapse: collapse;
@@ -16,7 +22,7 @@ th {
     text-align: left;
     background-color: #c1c1c1;
     color: black;
-  }
+}
 
 table tr:nth-child(even){background-color: #f2f2f2;}
 
@@ -26,3 +32,48 @@ table a:link, table a:visited, table a:hover, table a:focus, table a:active {
     color: blue;
     text-decoration: underline;
 }
+#cart-total {
+    padding: 10pt;
+    align-items: flex-end;
+    display: flex;
+    justify-content: flex-end;
+}
+#cont-shop {
+    padding: 5pt;
+    align-items: flex-end;
+    display: flex;
+    justify-content: flex-end;
+    text-decoration: none;
+    color: white;
+    border-color: black;
+    text-align: center;
+}
+
+.cart-form-section{  
+    padding: 5pt;
+    
+  }
+  label {
+      display: flex;
+      justify-content: flex-start;
+  }
+
+  input {
+    /* height: 20%; */
+    width: 40%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+  }
+  input#chkbx{
+      display: inline-block;
+
+  }
+  input.cart-pay-btn {
+      margin: 10pt;
+      padding: 20pt;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      width: 100px;
+  }

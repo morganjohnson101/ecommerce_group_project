@@ -2,14 +2,124 @@
     margin: 0px;
     padding: 0px;
 }
-header {
-    height: 40px;
-    background-color: #333333;
-    color: white;
-}
 .container {
     background-color: white;
 }
+header {
+    height: 65px;
+    background-color: #333333;
+    color: white;
+}
+
+#logo {
+    font-size: 20px;
+    margin: 15pt;
+    display: inline-flex;
+    justify-content: flex-start;
+}
+
+#cart-icon {
+    font-size: 20px;
+    margin-left: 1435px;
+    display: inline-flexbox;
+}
+
+#go-back-btn {
+    padding: 20px;
+}
+
+main {
+    margin: 20px;
+}
+
+#product-img {
+    display: inline-flex;
+    padding: 10px;
+}
+
+#multi-product-img ul li {
+    display: inline-flex;
+    text-decoration: none;
+    margin-left: 8.5px;
+
+}
+
+#product-desc {
+    display: inline-flex;
+    justify-content: center;
+    margin-right: 100px;
+    margin-left: 350px;
+    margin-top: -384px;
+    text-align: justify;
+
+}
+
+#product-opt {
+    display: inline-flex;
+    justify-content: right;
+    margin-left: 850px;
+    margin-top: -150px
+}
+
+.buy-btn {
+    display: inline-block;
+    justify-content: center;
+    padding: 10px;
+    margin-left: 25px;
+    margin-top: 5px;
+}
+.sim-itm-cnt {
+    margin-left: 368px;
+}
+
+#similar-items-content {
+    display: flex;
+    text-align: center;
+    padding:10px;
+}
+
+    #item-1 {
+        text-align: center;
+        padding: 10pt;
+    }
+        #item-1-desc {
+            padding: 5pt;
+            font-size: 10pt;
+        }
+    #item-2 {
+        text-align: center;
+        padding: 10pt;
+    }
+        #item-2-desc {
+            padding: 5pt;
+            font-size: 10pt;
+        }
+    #item-3 {
+        text-align: center;
+        padding: 10pt;
+    }
+        #item-3-desc {
+            padding: 5pt;
+            font-size: 10pt;
+        }
+    #item-4 {
+        text-align: center;
+        padding: 10pt;
+    }
+        #item-4-desc {
+            padding: 5pt;
+            font-size: 10pt;
+        }
+    #item-5 {
+        text-align: center;
+        padding: 10pt;
+    }
+        #item-5-desc {
+            padding: 5pt;
+            font-size: 10pt;
+        }
+
+
 .cart-container {
     padding: 30pt;
 }

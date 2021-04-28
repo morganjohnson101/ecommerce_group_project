@@ -10,6 +10,60 @@ header {
     background-color: #333333;
     color: white;
 }
+#side-nav{
+    display: inline-flex;
+    justify-content: flex-start;
+    border:1px solid black;
+    padding: 40pt;
+    margin: 15pt;
+    padding-top: 10pt;
+    border-radius: 5%;
+}
+
+    #search-bar input {
+        margin-left: -20pt;
+        margin-bottom: 10pt;
+        width: 150%;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+    }
+
+    ul li{
+        text-decoration: none;
+        list-style-type: none;
+    }
+
+
+#category-content {
+    display: inline-flex;
+    justify-content: first baseline;
+    margin: 10pt;
+    padding: 5pt;
+
+}
+
+    #sort-bar {
+        margin-left: 400pt;
+        margin-top: -30pt;
+    }
+.grid {
+    margin-left: 180pt;
+    margin-top: -150pt;
+}
+
+#product-grid {
+    display: flex;
+    text-align: center;
+    padding:10px;
+}
+
+    #page-nav {
+        display: flex;
+        text-align: center;
+        margin-left: 250pt
+
+    }
 
 #logo {
     font-size: 20px;

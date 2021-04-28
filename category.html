@@ -17,88 +17,93 @@
     <div class="container">
         <main>
             <!-- Product category search -->
-            <section>
-                <form id="search-bar" action="#" method="GET">
-                    <div>
-                        <input type="text" name="search" size="10" placeholder="product name">
-                        <input type="submit" style="display:none;">
-                    </div>
-                </form>
-                <ul>
-                    <li>Categories</li>
-                    <li>Girls (15)</li>
-                    <li>Boys (15)</li>
-                    <li>Women (15)</li>
-                    <li>Men (15)</li>
-                </ul>
-                <a href="#">Show All</a>
-            </section>
-            <section class="sim-itm-cnt">
-                <header>
+            <div id="side-nav">
+                <section>
+                    <form id="search-bar" action="#" method="GET">
+                        <div id='"search-bar'>
+                            <input type="text" name="search" size="10" placeholder="product name">
+                            <input type="submit" style="display:none;">
+                        </div>
+                    </form>
+                    <ul>
+                        <li>Categories</li>
+                        <li>Girls (15)</li>
+                        <li>Boys (15)</li>
+                        <li>Women (15)</li>
+                        <li>Men (15)</li>
+                    </ul>
+                    </ul>
+                    <a href="#">Show All</a>
+                </section>
+            </div>
+            <div id="category-content">
+                <div id="header-content">
                     <h2>T Shirts (page 2)</h2>
-                    <div>
-                        <a href="#">first</a> | <a href="#">prev</a> | 2 | <a href="#">next</a>
-                    </div>
-                    <form id="sort-bar">
+                    <div id="sort-bar">
+                        <div>
+                            <a href="#">first</a> | <a href="#">prev</a> | 2 | <a href="#">next</a>
+                        </div>
+                    
+                    <form>
                         <label for="sort-select"></label>
                         <select name="sort" id="sort-select">
                             <option value="price">Price</option>
                             <option value="popular">Most Popular</option>
+                        </select>
                     </form>
-                </header>
-                <!-- Product display grid -->
+                    </div>
+                </div>
+            </div>
+            <section class="grid">
                 <div id="product-grid">
                     <div id="item-1">
                         <img src="images/Men/pegasus-trail-2-mens-trail-running-shoe-JKj6Bj.jfif" height="100px"
                             width="100px">
                         <div id="item-1-desc">
-                        <span>$19.99</span><br>
-                        <span>Pegasus Trail 2</span>
+                            <span>$19.99</span><br>
+                            <span>Pegasus Trail 2</span>
                         </div>
                     </div>
                     <div id="item-2">
                         <img src="images/Men/pegasus-trail-2-mens-trail-running-shoe-JKj6Bj.jfif" height="100px"
                             width="100px">
                         <div id="item-2-desc">
-                        <span>$19.99</span><br>
-                        <span>Pegasus Trail 2</span>
+                            <span>$19.99</span><br>
+                            <span>Pegasus Trail 2</span>
                         </div>
                     </div>
                     <div id="item-3">
                         <img src="images/Men/pegasus-trail-2-mens-trail-running-shoe-JKj6Bj.jfif" height="100px"
                             width="100px">
                         <div id="item-3-desc">
-                        <span>$19.99</span><br>
-                        <span>Pegasus Trail 2</span>
+                            <span>$19.99</span><br>
+                            <span>Pegasus Trail 2</span>
                         </div>
                     </div>
                     <div id="item-4">
                         <img src="images/Men/pegasus-trail-2-mens-trail-running-shoe-JKj6Bj.jfif" height="100px"
                             width="100px">
                         <div id="item-4-desc">
-                        <span>$19.99</span><br>
-                        <span>Pegasus Trail 2</span>
+                            <span>$19.99</span><br>
+                            <span>Pegasus Trail 2</span>
                         </div>
                     </div>
                     <div id="item-5">
                         <img src="images/Men/pegasus-trail-2-mens-trail-running-shoe-JKj6Bj.jfif" height="100px"
                             width="100px">
                         <div id="item-5-desc">
-                        <span>$19.99</span><br>
-                        <span>Pegasus Trail 2</span>
+                            <span>$19.99</span><br>
+                            <span>Pegasus Trail 2</span>
                         </div>
                     </div>
                 </div>
                 <!-- Pagination nav (footer)-->
-                <nav>
-                    <ul>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">-></a></li>
-                    </ul>
-                </nav>
+                <div id="page-nav">
+                    <a href="#">1</a> | <a href="#">2</a> | <a href="#">-></a>
+                </div>
             </section>
         </main>
     </div>
 </body>
+
 </html>

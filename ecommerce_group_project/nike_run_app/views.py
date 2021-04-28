@@ -3,9 +3,11 @@ from django.contrib import messages
 import bcrypt
 from .models import *
 
+
 #ENTERING AND LEAVING WEBSITE
 def index(request):
     return HttpResponse("Nike Run Shop warming up!!!")
+
 
 def login(request):
     logged_user=User.objects.filter(email=request.POST['email'])
@@ -17,9 +19,11 @@ def login(request):
             return redirect('/welcome')
     return redirect('/')
 
+
 def logout(request):
     request.session.clear()
     return redirect('/')
+
 
 #CREATE
 def register(request):

@@ -26,6 +26,8 @@ class UserManager(models.Manager):
         if postdata['pw'] != postdata['conf_pw']:
             errors['conf_pw']="Password and confirm password MUST match!"
         return errors
+
+
 # CREATE YOUR MODELS HERE.
 class User(models.Model):
     first_name= models.CharField(max_length=255)
@@ -76,8 +78,4 @@ class Order(models.Model):
 class Image(models.Model):
     image_path=models.ImageField()
     created_at= models.DateTimeField(auto_now_add=True)
-    updated_at= models.DateTimeField(auto_now=True
-
-
-    
-    
+    updated_at= models.DateTimeField(auto_now=True)

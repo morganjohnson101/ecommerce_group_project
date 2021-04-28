@@ -1,4 +1,5 @@
 from django.db import models
+# from django.db.models import Sum
 import re
 
 # MANAGERS
@@ -25,6 +26,8 @@ class UserManager(models.Manager):
         if postdata['pw'] != postdata['conf_pw']:
             errors['conf_pw']="Password and confirm password MUST match!"
         return errors
+
+
 # CREATE YOUR MODELS HERE.
 class User(models.Model):
     first_name= models.CharField(max_length=255)
@@ -43,6 +46,7 @@ class Shoe(models.Model):
     size=models.IntegerField()
     price=models.DecimalField(decimal_places=2, max_digits=6)
     shoe_category=models.CharField(max_length=10)
+    # image_path=models.ImageField()
     #can we make next line 39 user or can you only have user field in one class model for whole project?
     buyer=models.ManyToManyField(User, related_name="shoes")
     created_at= models.DateTimeField(auto_now_add=True)
@@ -67,15 +71,11 @@ class Order(models.Model):
     order_date=models.DateTimeField(auto_now=True)
     total=models.DecimalField(decimal_places=2, max_digits=6)
     payment=models.ForeignKey(Payment, related_name="payment", on_delete=models.CASCADE)
-    user=models.ForeignKey(User, related_name="user", on delete=models.CASCADE)
+    user=models.ForeignKey(User, related_name="user", on_delete=models.CASCADE)
     created_at= models.DateTimeField(auto_now_add=True)
     updated_at= models.DateTimeField(auto_now=True)
 
 class Image(models.Model):
     image_path=models.ImageField()
     created_at= models.DateTimeField(auto_now_add=True)
-    updated_at= models.DateTimeField(auto_now=True
-
-
-    
-    
+    updated_at= models.DateTimeField(auto_now=True)

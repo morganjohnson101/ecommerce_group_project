@@ -1,0 +1,28 @@
+* { 
+    margin: 0px;
+    padding: 0px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 4px;
+}
+th {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: left;
+    background-color: #c1c1c1;
+    color: black;
+  }
+
+table tr:nth-child(even){background-color: #f2f2f2;}
+
+table tr:hover {background-color: #ddd;}
+
+table a:link, table a:visited, table a:hover, table a:focus, table a:active {
+    color: blue;
+    text-decoration: underline;
+}

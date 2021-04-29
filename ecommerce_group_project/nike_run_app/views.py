@@ -61,28 +61,29 @@ def show(request, id):
     return render(request, 'show.html', context)
 
 
-def category(request, cat):
+def category(request):
+    return render(request, 'category.html')
+
+
+def selectCategory(request, cat):
     context = {
         'men_count': len(Shoe.objects.filter(cat=cat)),
     }
     return render(request, 'category.html', context)
 
 
-def checkout(request):
-    if request.method == "POST":
-        errors = Payment.objects.create_validator(request.POST)
-        if len(errors) > 0:
-            for key, value in errors.items():
-                messages.error(request, value)
-            return redirect('/cart.html')
-        else:
-            payment = Payment.objects.create(card_number=request.POST['bcode'], exp_date=request.POST['bexpire'], user=User.objects.get(id=request.session['user_id']))
-            return redirect('/cart.html')
-    return redirect('/cart.html')
-
-
-def shipping(request):
+def cart(request):
     context = {
-        'current_user': User.objects.get(id=request.session['user_id'])
+        'shoe_name': request.session["cart_shoe_name"],
+        'shoe_price': request.session["cart_shoe_price"],
     }
-    return render(request, "cart.html", context)
+    return render(request, 'cart.html', context)
+
+
+def addToCart(request):
+    option_string = request.POST['size']
+    option_list = option_string.split(',')
+    request.session["cart_shoe_name"] = option_list[0]
+    request.session["cart_shoe_price"] = option_list[1]
+    print(request.session.items())
+    return redirect('/cart')

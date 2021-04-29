@@ -37,14 +37,15 @@
                 <p>{{ shoe.desc }}</p>
                 </div>
                 <div id="product-opt">
-                <form>
+                <form action="/add-to-cart" method="POST">
+                    {% csrf_token %}
                     <label for="size-select"></label>
-                    <select name="sizes" id="size-select">
-                        <option value="m9">{{ size.s1 }} (${{ shoe.price }})</option>
-                        <option value="m10">{{ size.s2 }} (${{ shoe.price }})</option>
-                        <option value="m11">{{ size.s3 }} (${{ shoe.price }})</option>
-                        <option value="m12">{{ size.s4 }} (${{ shoe.price }})</option>
-                        <option value="m13">{{ size.s5 }} (${{ shoe.price }})</option>
+                    <select name="size" id="size-select">
+                        <option value="{{shoe.name}},{{shoe.price}}">{{ size.s1 }} (${{ shoe.price }})</option>
+                        <option value="s2">{{ size.s2 }} (${{ shoe.price }})</option>
+                        <option value="s3">{{ size.s3 }} (${{ shoe.price }})</option>
+                        <option value="s4">{{ size.s4 }} (${{ shoe.price }})</option>
+                        <option value="s5">{{ size.s5 }} (${{ shoe.price }})</option>
                         <div id="buy-btn-icon">
                             <input type="submit" value="Buy" class="buy-btn">
                         </div>

@@ -1,40 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Nike Run Shop | Shopping Cart</title>
-        <link rel="stylesheet" href="./styles.css">
-    </head>
-    <body>
-        <section id="cart-table-section">
-            <table class="cart-table">
-                <tbody>
-                    <tr class="cart-table-header">
-                        <th>Item</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                    </tr>
-                    <tr>
-                        <td>Shoe 1</td>
-                        <td>$19.99</td>
-                        <td>1 <a href="#">update</a></td>
-                        <td>$19.99</td>
-                    </tr>
-                    <tr>
-                        <td>Shoe 2</td>
-                        <td>$30.99</td>
-                        <td>1 <a href="#">update</a></td>
-                        <td>$19.99</td>
-                    </tr>
-                </tbody>
-            </table>
-           <div>
-               <span>Total: $49.96</span>
-               <a href="#">Continue Shopping</a>
-           </div>
-        </section>
-        <section id="cart-form-section">
+
+<head>
+    <meta charset="utf-8">
+    <title>Nike Run Shop | Shopping Cart</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <header>
+        <span id="logo">Nike Run Shop</span>
+        <span id="cart-icon">Shopping Cart (5)</span>
+    </header>
+    <div class="container">
+        <div class="cart-container">
+            <section id="cart-table-section">
+                <table class="cart-table">
+                    <tbody>
+                        <tr class="cart-table-header">
+                            <th>Item</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                        <tr>
+                            <td>{{shoe_name}}</td>
+                            <td>${{shoe_price}}</td>
+                            <td>
+                                {cart.selected_quantity}
+                                <a href="#"><img src="{% static 'images/' %}/update.png" height="15" width="15"></a>
+                                <a href="#"><img src="{% static 'images/' %}/trashcan.png"height="15" width="15"></a>
+                            </td>
+                            <td>${cart.selected_quantity_total}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="cart-total">
+                        <span>Total: ${cart.total}</span>
+                </div>
+                <div id="cont-shop">
+                    <a href="/shoes/category">Continue Shopping</a>
+                </div>
+            </section>
+        </div>
+        <section class="cart-form-section">
             <!----
             <header id="validation-header">
                 {% if messages %}
@@ -79,8 +91,8 @@
                 </div>
                 <h3>Billing Information</h3>
                 <div>
-                    <input type="checkbox" name="sameaddr">
                     <label for="sameaddr">Same as Shipping</label>
+                    <input type="checkbox" name="sameaddr" id="chkbx">    
                 </div>
                 <div>
                     <label for="bfname">First Name</label>
@@ -125,7 +137,8 @@
                 <div>
                     <input type="submit" value="Pay" class="cart-pay-btn">
                 </div>
-            </form> 
+            </form>
         </section>
-    </body>
+    </div>
+</body>
 </html>

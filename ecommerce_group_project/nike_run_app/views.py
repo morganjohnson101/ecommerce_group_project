@@ -44,10 +44,27 @@ def register(request):
         return redirect('/welcome')
     return redirect('/')
 
-
-
-
-
-
 #RENDER
+
+def checkout(request):
+    if request.method == "POST":
+        errors = Payment.objects.create_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/cart.html')
+        else:
+            payment = Payment.objects.create(card_number=request.POST['bcode'], exp_date=request.POST['bexpire'], user=User.objects.get(id=request.session['user_id']))
+            return redirect('/cart.html')
+    return redirect('/cart.html', context)
+
+def shipping(request):
+    context = {
+        'current_user': User.objects.get(id=request.session['user_id'])
+    }
+    return render(request, "cart.html", context)
+
+
+
+
 

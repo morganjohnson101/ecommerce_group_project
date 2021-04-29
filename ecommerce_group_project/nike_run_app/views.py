@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
 import bcrypt
-from .models import User, Shoe, Size
+from .models import *
 
 
 # Login and Registration
@@ -46,7 +46,8 @@ def register(request):
         return redirect('/welcome')
     return redirect('/')
 
-#RENDER
+
+# Render Templates
 def index(request):
     return HttpResponse("Nike Run Shop warming up!!!")
 
@@ -65,3 +66,23 @@ def category(request, cat):
         'men_count': len(Shoe.objects.filter(cat=cat)),
     }
     return render(request, 'category.html', context)
+
+
+def checkout(request):
+    if request.method == "POST":
+        errors = Payment.objects.create_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/cart.html')
+        else:
+            payment = Payment.objects.create(card_number=request.POST['bcode'], exp_date=request.POST['bexpire'], user=User.objects.get(id=request.session['user_id']))
+            return redirect('/cart.html')
+    return redirect('/cart.html')
+
+
+def shipping(request):
+    context = {
+        'current_user': User.objects.get(id=request.session['user_id'])
+    }
+    return render(request, "cart.html", context)

@@ -7,6 +7,7 @@ from .models import *
 #ENTERING AND LEAVING WEBSITE
 def index(request):
     return HttpResponse("Nike Run Shop warming up!!!")
+    #return render(request, "loginreg.html")
 
 
 def login(request):
@@ -45,9 +46,18 @@ def register(request):
     return redirect('/')
 
 
-
-
-
-
 #RENDER
+def category(request):
+    context={
+        'all_nike_shoes':Shoe.objects.all
+    }
+    return render(request, 'category.html', context)
+
+def show(request, shoe_id):
+    shoe=Shoe.objects.get(id=shoe_id)
+    context={
+        'show_shoe': shoe,
+    }
+    return render(request, 'show.html', context)
+
 

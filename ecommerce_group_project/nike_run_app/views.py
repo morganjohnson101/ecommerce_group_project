@@ -46,8 +46,7 @@ def register(request):
         return redirect('/welcome')
     return redirect('/')
 
-
-# Rendered pages
+#RENDER
 def index(request):
     return HttpResponse("Nike Run Shop warming up!!!")
 

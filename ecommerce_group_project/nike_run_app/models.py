@@ -46,9 +46,10 @@ class Shoe(models.Model):
     size=models.IntegerField()
     price=models.DecimalField(decimal_places=2, max_digits=6)
     shoe_category=models.CharField(max_length=10)
-    # image_path=models.ImageField()
+    description=models.TextField(null=True)
+    image_path=models.ImageField(null=True)
     #can we make next line 39 user or can you only have user field in one class model for whole project?
-    buyer=models.ManyToManyField(User, related_name="shoes")
+    # buyer=models.ManyToManyField(User, related_name="shoes")
     created_at= models.DateTimeField(auto_now_add=True)
     updated_at= models.DateTimeField(auto_now=True)
 
@@ -75,7 +76,4 @@ class Order(models.Model):
     created_at= models.DateTimeField(auto_now_add=True)
     updated_at= models.DateTimeField(auto_now=True)
 
-class Image(models.Model):
-    image_path=models.ImageField()
-    created_at= models.DateTimeField(auto_now_add=True)
-    updated_at= models.DateTimeField(auto_now=True)
+

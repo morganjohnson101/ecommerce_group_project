@@ -17,6 +17,7 @@ def login(request):
         if bcrypt.checkpw(request.POST['pw'].encode(), logged_user.password.encode()):
             request.session['user_id']=logged_user.id
             request.session['user_name']=f"{logged_user.first_name} {logged_user.last_name}"
+            request.session['cart_selected_quantity']=0
             return redirect('/welcome')
     return redirect('/')
 
@@ -37,7 +38,6 @@ def register(request):
 
         user_pw=request.POST['pw']
         hash_pw=bcrypt.hashpw(user_pw.encode(), bcrypt.gensalt()).decode()
-
         new_user= User.objects.create(first_name=request.POST['f_n'], last_name=request.POST['l_n'], email=request.POST['email'],
         address=request.POST['address'], city=request.POST['city'], state=request.POST['state'], zip_code=request.POST['zip_code'], password=hash_pw)
         request.session['user_id']=new_user.id

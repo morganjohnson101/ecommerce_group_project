@@ -2,11 +2,12 @@ from django.db import models
 # from django.db.models import Sum
 import re
 
+
 # MANAGERS
 class UserManager(models.Manager):
     def validator(self, postdata):
-        email_check=re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-        errors={}
+        email_check = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+        errors = {}
         if len(postdata['f_name'])<2:
             errors['f_name']="First name MUST be longer than 2 characters!"
         if len(postdata['l_name'])<2:
@@ -28,52 +29,66 @@ class UserManager(models.Manager):
         return errors
 
 
-# CREATE YOUR MODELS HERE.
+# MODELS
 class User(models.Model):
-    first_name= models.CharField(max_length=255)
-    last_name= models.CharField(max_length=255)
-    email= models.EmailField(max_length=254)
-    address= models.CharField(max_length=255)
-    city= models.CharField(max_length=255)
-    state=models.CharField(max_length=2)
-    zip_code=models.IntegerField()
-    password=models.CharField(max_length=255)
-    created_at= models.DateTimeField(auto_now_add=True)
-    updated_at= models.DateTimeField(auto_now=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=254)
+    address = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=2)
+    zip_code = models.IntegerField()
+    password = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class Size(models.Model):
+    cat = models.CharField(max_length=3)
+    s1 = models.CharField(max_length=3)
+    s2 = models.CharField(max_length=3)
+    s3 = models.CharField(max_length=3, null=True)
+    s4 = models.CharField(max_length=3, null=True)
+    s5 = models.CharField(max_length=3, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 
 class Shoe(models.Model):
-    shoe_name=models.CharField(max_length=255)
-    size=models.IntegerField()
-    price=models.DecimalField(decimal_places=2, max_digits=6)
-    shoe_category=models.CharField(max_length=10)
-    description=models.TextField(null=True)
-    image_path=models.ImageField(null=True)
-    #can we make next line 39 user or can you only have user field in one class model for whole project?
+    name = models.CharField(max_length=255)
+    size = models.IntegerField()
+    size2 = models.ForeignKey(Size, related_name="shoes", on_delete=models.CASCADE, null=True)
+    price = models.DecimalField(decimal_places=2, max_digits=6)
+    cat = models.CharField(max_length=10)
+    desc = models.TextField(null=True)
+    image = models.ImageField(null=True)
+    # can we make next line 39 user or can you only have user field in one class model for whole project?
     # buyer=models.ManyToManyField(User, related_name="shoes")
-    created_at= models.DateTimeField(auto_now_add=True)
-    updated_at= models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 
 class Payment(models.Model):
-    cc_type=models.CharField(max_length=25)
-    card_number=models.IntegerField()
-    exp_date=models.IntegerField()
-    user=models.ForeignKey(User, related_name="cardholder", on_delete=models.CASCADE)
-    created_at= models.DateTimeField(auto_now_add=True)
-    updated_at= models.DateTimeField(auto_now=True)
+    cc_type = models.CharField(max_length=25)
+    card_number = models.IntegerField()
+    exp_date = models.IntegerField()
+    user = models.ForeignKey(User, related_name="cardholder", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 
 class Cart(models.Model):
-    shoes=models.ManyToManyField(Shoe, related_name="cart")
-    #do we need to create/represent a relationship between cart and order (1 cart has 1 order)?
-    created_at= models.DateTimeField(auto_now_add=True)
-    updated_at= models.DateTimeField(auto_now=True)
+    shoes = models.ManyToManyField(Shoe, related_name="cart")
+    # do we need to create/represent a relationship between cart and order (1 cart has 1 order)?
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 
 class Order(models.Model):
-    order_id=models.CharField(max_length=15)
-    order_date=models.DateTimeField(auto_now=True)
-    total=models.DecimalField(decimal_places=2, max_digits=6)
-    payment=models.ForeignKey(Payment, related_name="payment", on_delete=models.CASCADE)
-    user=models.ForeignKey(User, related_name="user", on_delete=models.CASCADE)
-    created_at= models.DateTimeField(auto_now_add=True)
-    updated_at= models.DateTimeField(auto_now=True)
-
-
+    order_id = models.CharField(max_length=15)
+    order_date = models.DateTimeField(auto_now=True)
+    total = models.DecimalField(decimal_places=2, max_digits=6)
+    payment = models.ForeignKey(Payment, related_name="payment", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="user", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

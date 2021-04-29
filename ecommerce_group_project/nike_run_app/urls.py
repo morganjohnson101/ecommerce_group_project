@@ -1,11 +1,12 @@
 from django.urls import path
-from . import views
+from nike_run_app import views
 
-urlpatterns=[
+
+urlpatterns = [
     path('', views.index),
     path('login', views.login),
     path('logout', views.logout),
     path('register', views.register),
-    path('category', views.category),
-
+    path('products/show/<int:id>', views.show),
+    path('category/<str:cat>', views.category),
 ]

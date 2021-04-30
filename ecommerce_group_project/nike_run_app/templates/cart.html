@@ -31,11 +31,11 @@
                             <td>{{item.0}}</td>
                             <td>${{item.1}}</td>
                             <td>
-                                {cart.selected_quantity}
+                                {item.quantity}
                                 <a href="#"><img src="{% static 'images/' %}/update.png" height="15" width="15"></a>
                                 <a href="#"><img src="{% static 'images/' %}/trashcan.png"height="15" width="15"></a>
                             </td>
-                            <td>${cart.selected_quantity_total}</td>
+                            <td>${item.totalquantity}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

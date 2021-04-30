@@ -70,15 +70,16 @@ def selectCategory(request, cat):
     context = {
         "all_shoes": Shoe.objects.annotate(price=Count('price')).order_by('price'),
         'men_count': len(Shoe.objects.filter(cat=cat)),
+        'women_count': len(Shoe.objects.filter(cat=cat)),
+        'girls_count': len(Shoe.objects.filter(cat=cat)),
+        'boys_count': len(Shoe.objects.filter(cat=cat)),
     }
     return render(request, 'category.html', context)
 
 
 def cart(request):
-    cart_items = []
-    cart_item_quantity = []
-    for i in range(1, len(request.session['saved_cart_items'])):
-        cart_items.append(request.session['saved_cart_items'][i])
+    request.session['saved_cart_items'].pop(0)
+    cart_items = request.session['saved_cart_items']
     context = {
         'session_cart_items': cart_items,
     }
@@ -96,6 +97,7 @@ def addToCart(request):
         saved_list.append(option_list)
         request.session['saved_cart_items'] = saved_list
     return redirect('/cart')
+
 
 def billing(request):
     if request.method == "POST":

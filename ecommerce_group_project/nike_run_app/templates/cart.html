@@ -47,8 +47,8 @@
             </section>
         </div>
         <section class="cart-form-section">
-            <!----
-            <header id="validation-header">
+            --
+            <!-- <header id="validation-header">
                 {% if messages %}
                 <ul class="messages">
                     {% for message in messages %} 
@@ -56,10 +56,17 @@
                     {% endfor %}
                 </ul>
                 {% endif %}
-            </header>
-            -->
-            <form action="#" method="POST">
-                <!--{% csrf_token %}-->
+            </header> -->
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %} 
+                        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+           
+            <form action="/cart/billing" method="POST">
+                {% csrf_token %}
                 <h3>Shipping Information</h3>
                 <div>
                     <label for="sfname">First Name</label>
@@ -73,10 +80,10 @@
                     <label for="saddr1">Address</label>
                     <input type="text" name="saddr1" size="15">
                 </div>
-                <div>
+                <!-- <div>
                     <label for="saddr2">Address 2</label>
                     <input type="text" name="saddr2" size="15">
-                </div>
+                </div> -->
                 <div>
                     <label for="scity">City</label>
                     <input type="text" name="scity" size="15">
@@ -91,8 +98,10 @@
                 </div>
                 <h3>Billing Information</h3>
                 <div>
-                    <label for="sameaddr">Same as Shipping</label>
-                    <input type="checkbox" name="sameaddr" id="chkbx">    
+                    {% if current_user.id == current_user.id %}
+                        <label for="sameaddr">Same as Shipping</label>
+                        <input type="checkbox" name="sameaddr" id="chkbx"> 
+                    {% endif %}   
                 </div>
                 <div>
                     <label for="bfname">First Name</label>
@@ -106,10 +115,10 @@
                     <label for="baddr1">Address</label>
                     <input type="text" name="baddr1" size="15">
                 </div>
-                <div>
+                <!-- <div>
                     <label for="baddr2">Address 2</label>
                     <input type="text" name="baddr2" size="15">
-                </div>
+                </div> -->
                 <div>
                     <label for="bcity">City</label>
                     <input type="text" name="bcity" size="15">
@@ -123,16 +132,20 @@
                     <input type="text" name="bzipcode" size="15">
                 </div>
                 <div>
-                    <label for="bcard">Card</label>
-                    <input type="text" name="bcard" size="15">
+                    <label for="bcardtype">Card Type</label>
+                    <input type="text" name="cc_type" size="15">
+                </div>
+                <div>
+                    <label for="bcard">Card Number</label>
+                    <input type="text" name="card_number" size="15">
                 </div>
                 <div>
                     <label for="bcode">Security Code</label>
-                    <input type="text" name="bcode" size="15">
+                    <input type="text" name="ss_code" size="15">
                 </div>
                 <div>
                     <label for="bexpire">Expiration</label>
-                    <input type="date" name="bexpire" size="15">
+                    <input type="date" name="exp_date" size="15">
                 </div>
                 <div>
                     <input type="submit" value="Pay" class="cart-pay-btn">

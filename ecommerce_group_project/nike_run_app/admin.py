@@ -7,7 +7,7 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class ShoeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'size', 'price', 'cat', 'desc')
+    list_display = ('name', 'price', 'cat', 'desc')
 
 
 class SizeAdmin(admin.ModelAdmin):

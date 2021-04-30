@@ -56,14 +56,10 @@ class Size(models.Model):
 
 class Shoe(models.Model):
     name = models.CharField(max_length=255)
-    size = models.IntegerField()
-    size2 = models.ForeignKey(Size, related_name="shoes", on_delete=models.CASCADE, null=True)
-    price = models.DecimalField(decimal_places=2, max_digits=6)
+    price = models.IntegerField()
     cat = models.CharField(max_length=10)
     desc = models.TextField(null=True)
     image = models.ImageField(null=True)
-    # can we make next line 39 user or can you only have user field in one class model for whole project?
-    # buyer=models.ManyToManyField(User, related_name="shoes")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

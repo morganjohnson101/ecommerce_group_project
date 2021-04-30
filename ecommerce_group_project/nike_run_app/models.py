@@ -45,7 +45,7 @@ class User(models.Model):
 
 
 class Size(models.Model):
-    cat = models.CharField(max_length=3)
+    cat = models.CharField(max_length=10)
     s1 = models.CharField(max_length=3)
     s2 = models.CharField(max_length=3)
     s3 = models.CharField(max_length=3, null=True)

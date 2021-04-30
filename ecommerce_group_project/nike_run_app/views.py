@@ -79,15 +79,8 @@ def cart(request):
     cart_item_quantity = []
     for i in range(1, len(request.session['saved_cart_items'])):
         cart_items.append(request.session['saved_cart_items'][i])
-    print(cart_items)
-    for i in range(0, len(cart_items)):
-        count = 0
-        if cart_items[i] == cart_items[i+1]:
-            count += 1
-            cart_items.pop(i)
     context = {
         'session_cart_items': cart_items,
-        #'shoe_price': request.session["cart_shoe_price"],
     }
     return render(request, 'cart.html', context)
 
@@ -102,13 +95,6 @@ def addToCart(request):
         saved_list = request.session['saved_cart_items']
         saved_list.append(option_list)
         request.session['saved_cart_items'] = saved_list
-    #request.session["cart_shoe_name"] = option_list[0]
-    #request.session["cart_shoe_price"] = option_list[1]
-    #print(request.session["saved_cart_items"])
-    print(request.session['saved_cart_items'])
-    print(len(request.session['saved_cart_items']))
-    #request.session.flush()
-    #print(request.session.items())
     return redirect('/cart')
 
 def billing(request):

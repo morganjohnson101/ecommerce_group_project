@@ -26,9 +26,10 @@
                             <th>Quantity</th>
                             <th>Total</th>
                         </tr>
+                        {% for item in session_cart_items %}
                         <tr>
-                            <td>{{shoe_name}}</td>
-                            <td>${{shoe_price}}</td>
+                            <td>{{item.0}}</td>
+                            <td>${{item.1}}</td>
                             <td>
                                 {cart.selected_quantity}
                                 <a href="#"><img src="{% static 'images/' %}/update.png" height="15" width="15"></a>
@@ -36,6 +37,7 @@
                             </td>
                             <td>${cart.selected_quantity_total}</td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
                 <div id="cart-total">

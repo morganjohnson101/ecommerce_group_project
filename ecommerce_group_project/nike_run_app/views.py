@@ -33,7 +33,7 @@ def register(request):
         user_pw = request.POST['pw']
         hash_pw = bcrypt.hashpw(user_pw.encode(), bcrypt.gensalt()).decode()
         new_user = User.objects.create(
-            first_name=request.POST['f_n'], 
+            first_name=request.POST['f_name'], 
             last_name=request.POST['l_n'], 
             email=request.POST['email'], 
             address=request.POST['address'], 
@@ -73,9 +73,19 @@ def selectCategory(request, cat):
 
 
 def cart(request):
+    cart_items = []
+    cart_item_quantity = []
+    for i in range(1, len(request.session['saved_cart_items'])):
+        cart_items.append(request.session['saved_cart_items'][i])
+    print(cart_items)
+    for i in range(0, len(cart_items)):
+        count = 0
+        if cart_items[i] == cart_items[i+1]:
+            count += 1
+            cart_items.pop(i)
     context = {
-        'shoe_name': request.session["cart_shoe_name"],
-        'shoe_price': request.session["cart_shoe_price"],
+        'session_cart_items': cart_items,
+        #'shoe_price': request.session["cart_shoe_price"],
     }
     return render(request, 'cart.html', context)
 
@@ -83,7 +93,18 @@ def cart(request):
 def addToCart(request):
     option_string = request.POST['size']
     option_list = option_string.split(',')
-    request.session["cart_shoe_name"] = option_list[0]
-    request.session["cart_shoe_price"] = option_list[1]
-    print(request.session.items())
+    if not 'saved_cart_items' in request.session or not request.session['saved_cart_items']:
+        request.session['saved_cart_items'] = ['initial']
+        request.session['saved_cart_items'].append(option_list)
+    else:
+        saved_list = request.session['saved_cart_items']
+        saved_list.append(option_list)
+        request.session['saved_cart_items'] = saved_list
+    #request.session["cart_shoe_name"] = option_list[0]
+    #request.session["cart_shoe_price"] = option_list[1]
+    #print(request.session["saved_cart_items"])
+    print(request.session['saved_cart_items'])
+    print(len(request.session['saved_cart_items']))
+    #request.session.flush()
+    #print(request.session.items())
     return redirect('/cart')

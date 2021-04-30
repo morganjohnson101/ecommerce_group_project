@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Loginreg</title>
+</head>
+<body>
+    <div id="wrapper">
+        <h1>Nike Run Shop</h1>
+        <div id="logreg"> 
+            <div>  
+                <h2>Register</h2>
+                {% if messages %}
+                    <ul>
+                        {% for error in messages %}
+                        <li>{{error}}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                    <form action="/register" method="POST">
+                        {% csrf_token %}
+                        First Name:<input type="text" name="f_n"><br>
+                        Last Name:<input type="text" name="l_n"><br>
+                        Email:<input type="email" name="email"><br>
+                        Address:<input type="text" name="address"><br>
+                        City:<input type="text" name="city"><br>
+                        Zip Code:<input type="text" name="zip_code"><br>
+                        Password:<input type="password" name="pw"><br>
+                        Confirm Password:<input type="password" name="conf_pw"><br>
+                        <input type="submit" value="Register">
+                    </form>
+            </div>
+            <div>
+                <h2>Login</h2>
+                {% if messages %}
+                    <ul>
+                        {% for error in messages %}
+                        <li>{{error}}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                    <form action="/login" method="POST">
+                        {% csrf_token %}
+                        Email:<input type="email" name="email"><br>
+                        Password:<input type="password" name="pw"><br>
+                        <input type="submit" value="Login">
+                    </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

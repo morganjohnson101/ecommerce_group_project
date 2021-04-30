@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
 import bcrypt
 from .models import *
+from django.db.models import Count
 
 
 # Login and Registration
@@ -24,7 +25,7 @@ def logout(request):
 
 def register(request):
     if request.method == 'POST':
-        errors = User.objects.validator(request.POST)
+        errors = User.objects.create_validator(request.POST)
         if errors:
             for error in errors:
                 messages.error(request, errors[error])
@@ -43,7 +44,7 @@ def register(request):
             password=hash_pw)
         request.session['user_id'] = new_user.id
         request.session['user_name'] = f"{new_user.first_name} {new_user.last_name}"
-        return redirect('/welcome')
+        return redirect('/shoes/category')
     return redirect('/')
 
 
@@ -62,11 +63,12 @@ def show(request, id):
 
 
 def category(request):
-    return render(request, 'category.html')
+    return render(request, 'category.html',)
 
 
 def selectCategory(request, cat):
     context = {
+        "all_shoes": Shoe.objects.annotate(price=Count('price')).order_by('price'),
         'men_count': len(Shoe.objects.filter(cat=cat)),
     }
     return render(request, 'category.html', context)
@@ -107,4 +109,17 @@ def addToCart(request):
     print(len(request.session['saved_cart_items']))
     #request.session.flush()
     #print(request.session.items())
+    return redirect('/cart')
+
+def billing(request):
+    if request.method == "POST":
+        errors = Payment.objects.create_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/cart')
+        else:
+            payment = Payment.objects.create(cc_type=request.POST['cc_type'], card_number=request.POST['card_number'], ss_code=request.POST['ss_code'], exp_date=request.POST['exp_date'], user=User.objects.get(id=request.session['user_id']))
+            messages.success(request, "payment processed") 
+            return redirect('/cart')
     return redirect('/cart')

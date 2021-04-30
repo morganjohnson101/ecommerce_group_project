@@ -5,13 +5,13 @@ import re
 
 # MANAGERS
 class UserManager(models.Manager):
-    def validator(self, postdata):
+    def create_validator(self, postdata):
         email_check = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
         errors = {}
-        if len(postdata['f_name'])<2:
-            errors['f_name']="First name MUST be longer than 2 characters!"
-        if len(postdata['l_name'])<2:
-            errors['l_name']="Last name MUST be longer than 2 characters!"
+        if len(postdata['f_n'])<2:
+            errors['f_n']="First name MUST be longer than 2 characters!"
+        if len(postdata['l_n'])<2:
+            errors['l_n']="Last name MUST be longer than 2 characters!"
         if not email_check.match(postdata['email']):
             errors['email']="Email MUST be in valid format!"
         if len(postdata['address'])<8:
@@ -64,14 +64,29 @@ class Shoe(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+class PaymentManager(models.Manager):
+    def create_validator(self, postdata):
+        errors = {}
+        if len(postdata['cc_type'])<3:
+            errors['cc_type'] = "Must be more than 3 characters"
+        if len(postdata['card_number'])<5:
+            errors['card_number'] = "Must enter a valid card number"
+        # if len(postdata['ss_code'])>=3:
+        #     errors['ss_code'] = "Invalid Security Code"
+        if len(postdata['exp_date'])<3:
+            errors['exp_date'] = "Must enter a valid date"
+        return errors
+
 
 class Payment(models.Model):
     cc_type = models.CharField(max_length=25)
     card_number = models.IntegerField()
-    exp_date = models.IntegerField()
+    ss_code = models.IntegerField(null=True)
+    exp_date = models.DateTimeField()
     user = models.ForeignKey(User, related_name="cardholder", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    objects = PaymentManager()
 
 
 class Cart(models.Model):

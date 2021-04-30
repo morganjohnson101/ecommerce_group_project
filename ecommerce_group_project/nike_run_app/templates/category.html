@@ -1,4 +1,3 @@
-
 <html lang="en">
 
 <head>
@@ -20,10 +19,11 @@
             <!-- Product category search -->
             <div id="side-nav">
                 <section>
-                    <form id="search-bar" action="#" method="GET">
+                    <form id="search-bar" action="{% url 'search-shoes' %}" method="GET">
                         <div id='"search-bar'>
-                            <input type="text" name="search" size="10" placeholder="product name">
-                            <input type="submit" style="display:none;">
+                            {% csrf_token %}
+                            <input type="form-contol me-2" type="search" size="10" placeholder="search shoes" name="q">
+                            <button class="btn btn-outline-secondary" type="submit">Search</button>
                         </div>
                     </form>
                     <ul>
@@ -44,63 +44,102 @@
                         <div>
                             <a href="#">first</a> | <a href="#">prev</a> | 2 | <a href="#">next</a>
                         </div>
-                    
-                    <form>
-                        <label for="sort-select"></label>
-                        <select name="sort" id="sort-select">
-                            <option value="price">Price</option>
-                            <option value="popular">Most Popular</option>
-                        </select>
-                    </form>
+
+                        <form>
+                            <label for="sort-select"></label>
+                            <select name="sort" id="sort-select">
+                                <option value="price">Price</option>
+                                <option value="popular">Most Popular</option>
+                            </select>
+                        </form>
                     </div>
                 </div>
             </div>
+
             <section class="grid">
                 <div id="product-grid">
+                    {% if found_entries %}
+                    <p>You Searched for {{ query_string }}</p>
+                    <br />
+                    {% for shoe in found_entries %}
                     <div id="item-1">
-                        <img src="images/Men/pegasus-trail-2-mens-trail-running-shoe-JKj6Bj.jfif" height="100px"
-                            width="100px">
+                        <img src="{% static 'images/' %}/{{shoe.cat}}/{{shoe.image}}" height="100px" width="100px">
                         <div id="item-1-desc">
-                            <span>$19.99</span><br>
-                            <span>Pegasus Trail 2</span>
+                            <span>{{ shoe.price }}</span><br>
+                            <span><a href="/shoes/show/{{ shoe.id }}">{{ shoe.name }}</a></span>
+
                         </div>
                     </div>
-                    <div id="item-2">
-                        <img src="images/Men/pegasus-trail-2-mens-trail-running-shoe-JKj6Bj.jfif" height="100px"
-                            width="100px">
+                    {% endfor %}
+                    {% endif %}
+
+                    {% for shoe in all_shoes %}
+                    <div id="item-1">
+                        <img src="{% static 'images/' %}/{{shoe.cat}}/{{shoe.image}}" height="100px" width="100px">
+                        <div id="item-1-desc">
+                            <span>{{ shoe.price }}</span><br>
+                            <span><a href="/shoes/show/{{ shoe.id }}">{{ shoe.name }}</a></span>
+
+                        </div>
+                    </div>
+
+                    <!-- <div id="item-2">
+                        <img src="{% static 'images/' %}/{{shoe.cat}}/{{shoe.image}}" height="100px" width="100px">
                         <div id="item-2-desc">
-                            <span>$19.99</span><br>
-                            <span>Pegasus Trail 2</span>
+                            <span>{{ shoe.price }}</span><br>
+                            <span>{{ shoe.name }}</span>
                         </div>
                     </div>
                     <div id="item-3">
-                        <img src="images/Men/pegasus-trail-2-mens-trail-running-shoe-JKj6Bj.jfif" height="100px"
-                            width="100px">
+                        <img src="{% static 'images/' %}/{{shoe.cat}}/{{shoe.image}}" height="100px" width="100px">
                         <div id="item-3-desc">
-                            <span>$19.99</span><br>
-                            <span>Pegasus Trail 2</span>
+                            <span>{{ shoe.price }}</span><br>
+                            <span>{{ shoe.name }}</span>
                         </div>
                     </div>
                     <div id="item-4">
-                        <img src="images/Men/pegasus-trail-2-mens-trail-running-shoe-JKj6Bj.jfif" height="100px"
-                            width="100px">
+                        <img src="{% static 'images/' %}/{{shoe.cat}}/{{shoe.image}}" height="100px" width="100px">
                         <div id="item-4-desc">
-                            <span>$19.99</span><br>
-                            <span>Pegasus Trail 2</span>
+                            <span>{{ shoe.price }}</span><br>
+                            <span>{{ shoe.name }}</span>
                         </div>
                     </div>
                     <div id="item-5">
-                        <img src="images/Men/pegasus-trail-2-mens-trail-running-shoe-JKj6Bj.jfif" height="100px"
-                            width="100px">
+                        <img src="{% static 'images/' %}/{{shoe.cat}}/{{shoe.image}}" height="100px" width="100px">
                         <div id="item-5-desc">
-                            <span>$19.99</span><br>
-                            <span>Pegasus Trail 2</span>
+                            <span>{{ shoe.price }}</span><br>
+                            <span>{{ shoe.name }}</span>
                         </div>
-                    </div>
+                    </div> -->
+                    {% endfor %}
                 </div>
                 <!-- Pagination nav (footer)-->
                 <div id="page-nav">
-                    <a href="#">1</a> | <a href="#">2</a> | <a href="#">-></a>
+
+                    {% if all_shoes.has_other_pages %}
+                    <ul class="col-sm-12 pagination justify-content-center center">
+                        {% if all_shoes.has_previous %}
+                        <li class="page-item"><a class="page-link"
+                                href="?page={{ all_shoes.previous_page_number }}">&laquo;</a></li>
+                        {% else %}
+                        <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                        {% endif %}
+                        {% for i in all_shoes.paginator.page_range %}
+                        {% if all_shoes.number == i %}
+                        <li class="page-item active"><span class="page-link">{{ i }} <span
+                                    class="sr-only">(current)</span></span></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if all_shoes.has_next %}
+                        <li class="page-item"><a class="page-link"
+                                href="?page={{ all_shoes.next_page_number }}">&raquo;</a></li>
+                        {% else %}
+                        <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
                 </div>
             </section>
         </main>

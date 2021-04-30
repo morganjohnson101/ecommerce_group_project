@@ -8,10 +8,10 @@ class UserManager(models.Manager):
     def validator(self, postdata):
         email_check = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
         errors = {}
-        if len(postdata['f_name'])<2:
-            errors['f_name']="First name MUST be longer than 2 characters!"
-        if len(postdata['l_name'])<2:
-            errors['l_name']="Last name MUST be longer than 2 characters!"
+        if len(postdata['f_n'])<2:
+            errors['first_name']="First name MUST be longer than 2 characters!"
+        if len(postdata['l_n'])<2:
+            errors['last_name']="Last name MUST be longer than 2 characters!"
         if not email_check.match(postdata['email']):
             errors['email']="Email MUST be in valid format!"
         if len(postdata['address'])<8:
@@ -41,6 +41,7 @@ class User(models.Model):
     password = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    objects = UserManager()
 
 
 class Size(models.Model):
@@ -62,6 +63,7 @@ class Shoe(models.Model):
     image = models.ImageField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
 
 
 class Payment(models.Model):

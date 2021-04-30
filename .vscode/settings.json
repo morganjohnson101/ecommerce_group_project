@@ -1,3 +1,5 @@
 {
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "python.pythonPath": "c:\\Users\\stram\\py_envs\\py3env\\Scripts\\python.exe",
+    "python.autoComplete.extraPaths": ["./ecommerce_group_project"],
 }

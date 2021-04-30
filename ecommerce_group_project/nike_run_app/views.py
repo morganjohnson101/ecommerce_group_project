@@ -49,7 +49,7 @@ def register(request):
 
 # Render Templates
 def index(request):
-    return HttpResponse("Nike Run Shop warming up!!!")
+    return render(request, 'loginreg.html')
 
 
 def show(request, id):

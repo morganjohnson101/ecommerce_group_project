@@ -3,7 +3,12 @@ from django.contrib import messages
 import bcrypt
 from django.db.models import Q
 from .models import *
+<<<<<<< HEAD
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+=======
+from django.db.models import Count
+
+>>>>>>> 508663f2789d22967f8d37d7b9132e325810ac36
 
 # Login and Registration
 def login(request):
@@ -25,7 +30,7 @@ def logout(request):
 
 def register(request):
     if request.method == 'POST':
-        errors = User.objects.validator(request.POST)
+        errors = User.objects.create_validator(request.POST)
         if errors:
             for error in errors:
                 messages.error(request, errors[error])
@@ -34,7 +39,7 @@ def register(request):
         user_pw = request.POST['pw']
         hash_pw = bcrypt.hashpw(user_pw.encode(), bcrypt.gensalt()).decode()
         new_user = User.objects.create(
-            first_name=request.POST['f_n'], 
+            first_name=request.POST['f_name'], 
             last_name=request.POST['l_n'], 
             email=request.POST['email'], 
             address=request.POST['address'], 
@@ -63,6 +68,7 @@ def show(request, id):
 
 
 def category(request):
+<<<<<<< HEAD
     all_shoes = Shoe.objects.all()
     per_page = 15
     page = request.GET.get('page',1)
@@ -77,19 +83,27 @@ def category(request):
         'all_shoes': all_shoes
     }
     return render(request, 'category.html', context)
+=======
+    return render(request, 'category.html',)
+>>>>>>> 508663f2789d22967f8d37d7b9132e325810ac36
 
 
 def selectCategory(request, cat):
     context = {
+        "all_shoes": Shoe.objects.annotate(price=Count('price')).order_by('price'),
         'men_count': len(Shoe.objects.filter(cat=cat)),
+        'women_count': len(Shoe.objects.filter(cat=cat)),
+        'girls_count': len(Shoe.objects.filter(cat=cat)),
+        'boys_count': len(Shoe.objects.filter(cat=cat)),
     }
     return render(request, 'category.html', context)
 
 
 def cart(request):
+    request.session['saved_cart_items'].pop(0)
+    cart_items = request.session['saved_cart_items']
     context = {
-        'shoe_name': request.session["cart_shoe_name"],
-        'shoe_price': request.session["cart_shoe_price"],
+        'session_cart_items': cart_items,
     }
     return render(request, 'cart.html', context)
 
@@ -97,9 +111,27 @@ def cart(request):
 def addToCart(request):
     option_string = request.POST['size']
     option_list = option_string.split(',')
-    request.session["cart_shoe_name"] = option_list[0]
-    request.session["cart_shoe_price"] = option_list[1]
-    print(request.session.items())
+    if not 'saved_cart_items' in request.session or not request.session['saved_cart_items']:
+        request.session['saved_cart_items'] = ['initial']
+        request.session['saved_cart_items'].append(option_list)
+    else:
+        saved_list = request.session['saved_cart_items']
+        saved_list.append(option_list)
+        request.session['saved_cart_items'] = saved_list
+    return redirect('/cart')
+
+
+def billing(request):
+    if request.method == "POST":
+        errors = Payment.objects.create_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/cart')
+        else:
+            payment = Payment.objects.create(cc_type=request.POST['cc_type'], card_number=request.POST['card_number'], ss_code=request.POST['ss_code'], exp_date=request.POST['exp_date'], user=User.objects.get(id=request.session['user_id']))
+            messages.success(request, "payment processed") 
+            return redirect('/cart')
     return redirect('/cart')
 
 # def search_shoes(request):

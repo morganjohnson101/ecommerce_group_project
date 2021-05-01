@@ -26,12 +26,16 @@
                 {% endif %}
                     <form action="/register" method="POST">
                         {% csrf_token %}
-                        First Name:<input type="text" name="f_n"><br>
+                        First Name:<input type="text" name="f_name"><br>
                         Last Name:<input type="text" name="l_n"><br>
                         Email:<input type="email" name="email"><br>
                         Address:<input type="text" name="address"><br>
                         City:<input type="text" name="city"><br>
+<<<<<<< HEAD
                         State:<input type="text" name="state"><br>
+=======
+                        State: <input type="text" name="state"><br>
+>>>>>>> 508663f2789d22967f8d37d7b9132e325810ac36
                         Zip Code:<input type="text" name="zip_code"><br>
                         Password:<input type="password" name="pw"><br>
                         Confirm Password:<input type="password" name="conf_pw"><br>

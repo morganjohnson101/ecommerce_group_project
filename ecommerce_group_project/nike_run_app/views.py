@@ -96,20 +96,23 @@ def selectCategory(request, cat):
 def cart(request):
     request.session['saved_cart_items'].pop(0)
     cart_items = request.session['saved_cart_items']
+    print(cart_items)
     cart_total = 0
     for i in range(len(cart_items)-1, -1, -1):
         if cart_items[i][0] == cart_items[i-1][0]:
             cart_items[i].append('dup')
             cart_items.pop(i-1)
+    print(cart_items)
     for i in range(0, len(cart_items)):
         cart_items[i].insert(2, len(cart_items[i]) - 1 )
         cart_items[i].append( int(cart_items[i][1]) * int(cart_items[i][2]) )
         cart_total += cart_items[i][-1]
+    print(cart_items)
     context = {
         'cart_items': cart_items,
-        'cart_total': format(cart_total, ',d'),
-
+        'cart_total': format(cart_total, ',d')
     }
+    
     return render(request, 'cart.html', context)
 
 
@@ -123,6 +126,7 @@ def addToCart(request):
         saved_list = request.session['saved_cart_items']
         saved_list.append(option_list)
         request.session['saved_cart_items'] = saved_list
+    print(request.session['saved_cart_items'])
     return redirect('/cart')
 
 

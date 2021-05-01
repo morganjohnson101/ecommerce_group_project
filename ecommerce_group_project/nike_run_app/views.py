@@ -76,7 +76,11 @@ def category(request):
     except EmptyPage: 
         all_shoes=paginator.page(paginator.num_pages)
     context = {
-        'all_shoes': all_shoes
+        'all_shoes': all_shoes,
+        'men_count': len(Shoe.objects.filter(cat='men')),
+        'women_count': len(Shoe.objects.filter(cat='women')),
+        'girls_count': len(Shoe.objects.filter(cat='girls')),
+        'boys_count': len(Shoe.objects.filter(cat='boys')),
     }
     return render(request, 'category.html', context)
     return render(request, 'category.html',)
@@ -85,10 +89,6 @@ def category(request):
 def selectCategory(request, cat):
     context = {
         "all_shoes": Shoe.objects.annotate(price=Count('price')).order_by('price'),
-        'men_count': len(Shoe.objects.filter(cat=cat)),
-        'women_count': len(Shoe.objects.filter(cat=cat)),
-        'girls_count': len(Shoe.objects.filter(cat=cat)),
-        'boys_count': len(Shoe.objects.filter(cat=cat)),
     }
     return render(request, 'category.html', context)
 

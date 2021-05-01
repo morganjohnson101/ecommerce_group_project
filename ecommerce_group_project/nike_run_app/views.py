@@ -3,12 +3,9 @@ from django.contrib import messages
 import bcrypt
 from django.db.models import Q
 from .models import *
-<<<<<<< HEAD
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-=======
 from django.db.models import Count
 
->>>>>>> 508663f2789d22967f8d37d7b9132e325810ac36
 
 # Login and Registration
 def login(request):
@@ -39,7 +36,7 @@ def register(request):
         user_pw = request.POST['pw']
         hash_pw = bcrypt.hashpw(user_pw.encode(), bcrypt.gensalt()).decode()
         new_user = User.objects.create(
-            first_name=request.POST['f_name'], 
+            first_name=request.POST['f_n'], 
             last_name=request.POST['l_n'], 
             email=request.POST['email'], 
             address=request.POST['address'], 
@@ -68,7 +65,6 @@ def show(request, id):
 
 
 def category(request):
-<<<<<<< HEAD
     all_shoes = Shoe.objects.all()
     per_page = 15
     page = request.GET.get('page',1)
@@ -83,9 +79,7 @@ def category(request):
         'all_shoes': all_shoes
     }
     return render(request, 'category.html', context)
-=======
     return render(request, 'category.html',)
->>>>>>> 508663f2789d22967f8d37d7b9132e325810ac36
 
 
 def selectCategory(request, cat):

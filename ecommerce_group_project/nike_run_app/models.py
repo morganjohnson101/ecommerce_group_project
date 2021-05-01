@@ -9,15 +9,9 @@ class UserManager(models.Manager):
         email_check = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
         errors = {}
         if len(postdata['f_n'])<2:
-<<<<<<< HEAD
-            errors['first_name']="First name MUST be longer than 2 characters!"
-        if len(postdata['l_n'])<2:
-            errors['last_name']="Last name MUST be longer than 2 characters!"
-=======
             errors['f_n']="First name MUST be longer than 2 characters!"
         if len(postdata['l_n'])<2:
             errors['l_n']="Last name MUST be longer than 2 characters!"
->>>>>>> 508663f2789d22967f8d37d7b9132e325810ac36
         if not email_check.match(postdata['email']):
             errors['email']="Email MUST be in valid format!"
         if len(postdata['address'])<8:

@@ -150,6 +150,6 @@ def search_shoes(request):
     context = { 
         'query_string': query_string,
         'found_entries': found_entries,
-        # 'categories': Category.objects.all()
+    
     }
     return render(request, 'category.html', context)

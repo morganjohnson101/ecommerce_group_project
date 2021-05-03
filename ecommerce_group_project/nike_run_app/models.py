@@ -79,6 +79,7 @@ class PaymentManager(models.Manager):
         return errors
 
 
+
 class Payment(models.Model):
     cc_type = models.CharField(max_length=25)
     card_number = models.IntegerField()

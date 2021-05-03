@@ -48,12 +48,14 @@ header {
         margin-top: -30pt;
     }
 .grid {
+    
     margin-left: 180pt;
     margin-top: -150pt;
 }
 
 #product-grid {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     text-align: center;
     padding:10px;
 }

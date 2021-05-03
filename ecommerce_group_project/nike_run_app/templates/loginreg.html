@@ -7,9 +7,12 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Loginreg</title>
+    <<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <div id="wrapper">
+    
+    <!-- <div id="wrapper">
         <h1>Nike Run Shop</h1>
         <div id="logreg"> 
             <div>  
@@ -28,6 +31,7 @@
                         Email:<input type="email" name="email"><br>
                         Address:<input type="text" name="address"><br>
                         City:<input type="text" name="city"><br>
+                        State:<input type="text" name="state"><br>
                         State: <input type="text" name="state"><br>
                         Zip Code:<input type="text" name="zip_code"><br>
                         Password:<input type="password" name="pw"><br>
@@ -37,19 +41,116 @@
             </div>
             <div>
                 <h2>Login</h2>
-                {% if messages %}
-                    <ul>
-                        {% for error in messages %}
-                        <li>{{error}}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
                     <form action="/login" method="POST">
                         {% csrf_token %}
                         Email:<input type="email" name="email"><br>
                         Password:<input type="password" name="pw"><br>
                         <input type="submit" value="Login">
                     </form>
+            </div>
+        </div>
+    </div> -->
+    <div class="container">
+        <h1>Nike Run Shop</h1>
+        <div class="row">
+            <div class="col-6 px-3">
+                <h1 class="display-4">Register</h1>
+                {% if messages %}
+                    <ul>
+                        {% for error in messages %}
+                        <li>{{error}}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                <form action="/register" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="first_name" class="col-sm-4 col-form-label col-form-label-sm">First Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-sm" name="f_n">
+                            
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="last_name" class="col-sm-4 col-form-label col-form-label-sm">Last Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-sm" name="l_n">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-4 col-form-label col-form-label-sm">Email</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-sm" name="email">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-4 col-form-label col-form-label-sm">Address</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-sm" name="address">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-4 col-form-label col-form-label-sm">City</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-sm" name="city">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-4 col-form-label col-form-label-sm">State</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-sm" name="state">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-4 col-form-label col-form-label-sm">Zip Code</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-sm" name="zip_code">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-4 col-form-label col-form-label-sm">Password</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control form-control-sm" name="pw">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="confirm_password" class="col-sm-4 col-form-label col-form-label-sm">Confirm
+                            Password</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control form-control-sm" name="conf_pw">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </div>
+            <div class="col-6 px-3">
+                <h1 class="display-4">Login</h1>
+                <form action="/login" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-3 col-form-label col-form-label-sm">Email</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control form-control-sm" name="email">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-3 col-form-label col-form-label-sm">Password</label>
+                        <div class="col-sm-9">
+                            <input type="pw" class="form-control form-control-sm" name="pw">
+                            </ul>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" value="Login">Login</button>
+                </form>
             </div>
         </div>
     </div>

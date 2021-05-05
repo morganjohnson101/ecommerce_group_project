@@ -14,19 +14,30 @@ header {
     display: inline-flex;
     justify-content: flex-start;
     border:1px solid black;
-    padding: 40pt;
+    padding: 18pt;
+    padding-bottom: 40pt;
     margin: 15pt;
     padding-top: 10pt;
     border-radius: 5%;
 }
 
     #search-bar input {
-        margin-left: -20pt;
+        margin-left: -5pt;
         margin-bottom: 10pt;
-        width: 150%;
+        width: 55%;
+        height: 18%;
         box-sizing: border-box;
-        display: flex;
-        justify-content: center;
+        display: block;
+        justify-content: left;
+    }
+
+    .btn {
+        display: inline-block;
+        margin: 5pt;
+        margin-bottom: 19pt;
+        margin-top: -38pt;
+        margin-left: 80pt;
+        padding-left: 10pt;
     }
 
     ul li{

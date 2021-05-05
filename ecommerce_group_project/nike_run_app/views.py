@@ -115,6 +115,17 @@ def addToCart(request):
     return redirect('/cart')
 
 
+def remove(self, shoe):
+    shoe_id = str(shoe.id)
+    if shoe_id in self.cart:
+        # Subtract 1 from the quantity
+        self.cart[shoe_id]['quantity'] -= 1
+        # If the quantity is now 0, then delete the item
+        if self.cart[shoe_id]['quantity'] == 0:
+            del self.cart[product_id]
+        self.save()
+
+
 def billing(request):
     if request.method == "POST":
         errors = Payment.objects.create_validator(request.POST)
@@ -128,14 +139,7 @@ def billing(request):
             return redirect('/cart')
     return redirect('/cart')
 
-# def search_shoes(request):
-#     if request.method == "POST":
-#         searched = request.POST('searched')
-#         shoes = Shoe.objects.filter(name__contains=searched)
-    
-#         return render(request, 'search_shoes.html',{'searched':searched,'shoes':shoes})
-#     else:
-#         return render(request, 'search_shoes.html',{})
+
 def normalize_query(query_string, findterms=re.compile(r'"([^"]+)"|(\S+)').findall, normspace=re.compile(r'\s{2,}').sub):
     ''' Splits the query string in invidual keywords, getting rid of unecessary spaces
         and grouping quoted words together.

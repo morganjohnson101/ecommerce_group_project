@@ -1,6 +1,7 @@
 from django.db import models
 # from django.db.models import Sum
 import re
+import bcrypt
 
 
 # MANAGERS
@@ -27,6 +28,14 @@ class UserManager(models.Manager):
         if postdata['pw'] != postdata['conf_pw']:
             errors['conf_pw']="Password and confirm password MUST match!"
         return errors
+
+    def authenticate(self, email, password):
+        users = self.filter(email=email)
+        if not users:
+            return False
+
+        user = users[0]
+        return bcrypt.checkpw(password.encode(), user.password.encode())
 
 
 # MODELS
@@ -59,6 +68,7 @@ class Shoe(models.Model):
     name = models.CharField(max_length=255)
     price = models.IntegerField()
     cat = models.CharField(max_length=10)
+    #cat=models.ForeignKey(Category, related_name="cat", on_delete=models.CASCADE)
     desc = models.TextField(null=True)
     image = models.ImageField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -105,3 +115,9 @@ class Order(models.Model):
     user = models.ForeignKey(User, related_name="user", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+# class Category(models.Model):
+#     cat_name=models.CharField(max_length=25)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+    

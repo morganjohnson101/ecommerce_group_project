@@ -29,4 +29,14 @@ def shipping(request):
    context = {
         'current_user': User.objects.get(id=request.session['user_id'])
     }
-   return render(request, "cart.html", context) 
+   return render(request, "cart.html", context)
+
+
+//
+print(cart_items)
+    for i in range(0, len(cart_items)):
+        for j in range(i+1, len(cart_items)):
+            if cart_items[i][0] == cart_items[j][0]:
+                cart_items[i].append('dup')
+                print(i)
+    print(cart_items)

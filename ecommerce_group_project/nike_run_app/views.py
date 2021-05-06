@@ -9,19 +9,19 @@ from django.db.models import Count
 
 # Login and Registration
 def login(request):
-    logged_user = User.objects.filter(email=request.POST['email'])
-    if logged_user:
-        logged_use = logged_user[0]
-        if bcrypt.checkpw(request.POST['pw'].encode(), logged_user.password.encode()):
-            request.session['user_id'] = logged_user.id
-            request.session['user_name'] = f"{logged_user.first_name} {logged_user.last_name}"
-            request.session['cart_selected_quantity'] = 0
-            return redirect('/shoes/category/')
-    return redirect('/')
+    if request.method == "GET":
+        return redirect('/')
+    if not User.objects.authenticate(request.POST['email'], request.POST['pw']):
+        messages.error(request, 'Invalid Email/Password')
+        return redirect('/')
+    user = User.objects.get(email=request.POST['email'])
+    request.session['user_id'] = user.id
+    messages.success(request, "You have successfully logged in!")
+    return redirect('/shoes/category')
 
 
 def logout(request):
-    request.session.clear()
+    request.session.flush()
     return redirect('/')
 
 
@@ -96,8 +96,19 @@ def selectCategory(request, cat):
 def cart(request):
     request.session['saved_cart_items'].pop(0)
     cart_items = request.session['saved_cart_items']
+    cart_total = 0
+    for i in range(len(cart_items)-1, -1, -1):
+        if cart_items[i][0] == cart_items[i-1][0]:
+            cart_items[i].append('dup')
+            cart_items.pop(i-1)
+    for i in range(0, len(cart_items)):
+        cart_items[i].insert(2, len(cart_items[i]) - 1 )
+        cart_items[i].append( int(cart_items[i][1]) * int(cart_items[i][2]) )
+        cart_total += cart_items[i][-1]
     context = {
-        'session_cart_items': cart_items,
+        'cart_items': cart_items,
+        'cart_total': format(cart_total, ',d'),
+
     }
     return render(request, 'cart.html', context)
 

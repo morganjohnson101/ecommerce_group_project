@@ -13,6 +13,7 @@
 <body>
     <header>
         <span id="logo">Nike Run Shop</span>
+        <a href="/logout">logout</a>
         <span id="cart-icon">Shopping Cart (5)</span>
     </header>
     <div class="container">
@@ -26,22 +27,22 @@
                             <th>Quantity</th>
                             <th>Total</th>
                         </tr>
-                        {% for item in session_cart_items %}
+                        {% for item in cart_items %}
                         <tr>
-                            <td>{{item.0}}</td>
-                            <td>${{item.1}}</td>
+                            <td>{{ item.0 }}</td>
+                            <td>${{ item.1 }}</td>
                             <td>
-                                {item.quantity}
+                                {{ item.2 }}
                                 <a href="#"><img src="{% static 'images/' %}/update.png" height="15" width="15"></a>
                                 <a href="/remove"><img src="{% static 'images/' %}/trashcan.png"height="15" width="15"></a>
                             </td>
-                            <td>${item.totalquantity}</td>
+                            <td>${{ item|last }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
                 <div id="cart-total">
-                        <span>Total: ${cart.total}</span>
+                        <span>Total: ${{ cart_total }}</span>
                 </div>
                 <div id="cont-shop">
                     <a href="/shoes/category">Continue Shopping</a>

@@ -59,6 +59,7 @@ class Shoe(models.Model):
     name = models.CharField(max_length=255)
     price = models.IntegerField()
     cat = models.CharField(max_length=10)
+    #cat=models.ForeignKey(Category, related_name="cat", on_delete=models.CASCADE)
     desc = models.TextField(null=True)
     image = models.ImageField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -105,3 +106,9 @@ class Order(models.Model):
     user = models.ForeignKey(User, related_name="user", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+# class Category(models.Model):
+#     cat_name=models.CharField(max_length=25)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+    

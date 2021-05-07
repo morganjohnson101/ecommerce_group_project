@@ -16,7 +16,6 @@ def login(request):
         return redirect('/')
     user = User.objects.get(email=request.POST['email'])
     request.session['user_id'] = user.id
-    messages.success(request, "You have successfully logged in!")
     return redirect('/shoes/category')
 
 

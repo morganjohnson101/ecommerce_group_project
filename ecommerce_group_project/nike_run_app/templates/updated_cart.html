@@ -13,7 +13,6 @@
 <body>
     <header>
         <span id="logo">Nike Run Shop</span>
-        <a href="/logout">logout</a>
         <span id="cart-icon">Shopping Cart (5)</span>
     </header>
     <div class="container">
@@ -29,14 +28,6 @@
                         </tr>
                         {% for item in cart_items %}
                         <tr>
-<<<<<<< HEAD
-                            <td>{{ item.0 }}</td>
-                            <td>${{ item.1 }}</td>
-                            <td>
-                                {{ item.2 }}
-                                <a href="#"><img src="{% static 'images/' %}/update.png" height="15" width="15"></a>
-                                <a href="/remove"><img src="{% static 'images/' %}/trashcan.png"height="15" width="15"></a>
-=======
                             <td>{{ item.1 }}</td>
                             <td>${{ item.2 }}</td>
                             <td>
@@ -57,7 +48,6 @@
                                         <input type="submit" value="Delete">
                                     </div>
                                 </form>
->>>>>>> 0be485517ad6779fd596fb36d88300b877914947
                             </td>
                             <td>${{ item|last }}</td>
                         </tr>

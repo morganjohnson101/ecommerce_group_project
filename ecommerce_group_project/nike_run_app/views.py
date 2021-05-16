@@ -5,6 +5,7 @@ from django.db.models import Q
 from .models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
+from collections import defaultdict
 
 
 # Login and Registration
@@ -76,7 +77,11 @@ def category(request):
     except EmptyPage: 
         all_shoes=paginator.page(paginator.num_pages)
     context = {
-        'all_shoes': all_shoes
+        'all_shoes': all_shoes,
+        'men_count': len(Shoe.objects.filter(cat='men')),
+        'women_count': len(Shoe.objects.filter(cat='women')),
+        'girls_count': len(Shoe.objects.filter(cat='girls')),
+        'boys_count': len(Shoe.objects.filter(cat='boys')),
     }
     return render(request, 'category.html', context)
     return render(request, 'category.html',)
@@ -85,36 +90,76 @@ def category(request):
 def selectCategory(request, cat):
     context = {
         "all_shoes": Shoe.objects.annotate(price=Count('price')).order_by('price'),
-        'men_count': len(Shoe.objects.filter(cat=cat)),
-        'women_count': len(Shoe.objects.filter(cat=cat)),
-        'girls_count': len(Shoe.objects.filter(cat=cat)),
-        'boys_count': len(Shoe.objects.filter(cat=cat)),
     }
     return render(request, 'category.html', context)
 
 
-def cart(request):
-    request.session['saved_cart_items'].pop(0)
-    cart_items = request.session['saved_cart_items']
+def cartTotal(items):
+    total = 0
+    for i in range(0, len(items)):
+        total += int(items[i][-1])
+    return total
+
+
+current_items = []
+
+def updateCart(request):
+    global current_items
+    item_index = request.POST['update_item']
+    current_items[int(item_index)][3] = request.POST['update_input']
+    current_items[int(item_index)][-1] = int(current_items[int(item_index)][2]) * int(request.POST['update_input'])
     context = {
-        'session_cart_items': cart_items,
+    'cart_items': current_items,
+    'cart_total': format(cartTotal(current_items), ',d')
     }
     return render(request, 'cart.html', context)
+
+
+def deleteCart(request):
+    global current_items
+    item_index = request.POST['delete_item']
+    current_items.pop(int(item_index))
+    return redirect('/cart')
+
+
+def cart(request):
+    global current_items
+    request.session['saved_items'].pop(0)
+    cart_items = request.session['saved_items']
+    if len(cart_items) == 1:
+        print('length of cart is 1')
+        cart_items[0].insert(0, 0)
+        cart_items[0].insert(3, len(cart_items[0])-2)
+        cart_items[0].append( int(cart_items[0][2]) * int(cart_items[0][3]))
+    else:
+        for i in range(0, len(cart_items)):
+            cart_items[i].insert(0, i)
+            cart_items[i].insert(3, len(cart_items[i])-2 )
+            cart_items[i].append( int(cart_items[i][2]) * int(cart_items[i][3])) 
+    current_items = cart_items
+    print(current_items)
+    context = {
+    'cart_items': current_items,
+    'cart_total': format(cartTotal(current_items), ',d')
+    }
+    return render(request, 'cart.html', context)
+
 
 
 def addToCart(request):
     option_string = request.POST['size']
     option_list = option_string.split(',')
-    if not 'saved_cart_items' in request.session or not request.session['saved_cart_items']:
-        request.session['saved_cart_items'] = ['initial']
-        request.session['saved_cart_items'].append(option_list)
+    if not 'saved_items' in request.session or not request.session['saved_items']:
+        request.session['saved_items'] = ['initial']
+        request.session['saved_items'].append(option_list)
     else:
-        saved_list = request.session['saved_cart_items']
+        saved_list = request.session['saved_items']
         saved_list.append(option_list)
-        request.session['saved_cart_items'] = saved_list
+        request.session['saved_items'] = saved_list
     return redirect('/cart')
 
 
+<<<<<<< HEAD
 def remove(self, shoe):
     shoe_id = str(shoe.id)
     if shoe_id in self.cart:
@@ -125,6 +170,8 @@ def remove(self, shoe):
             del self.cart[product_id]
         self.save()
 
+=======
+>>>>>>> 0d6ddd656d7ce9be98ebe6ae31e75e6ce97fdafb
 
 def billing(request):
     if request.method == "POST":

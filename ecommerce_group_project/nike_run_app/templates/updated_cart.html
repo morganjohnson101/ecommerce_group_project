@@ -31,11 +31,6 @@
                             <td>{{ item.1 }}</td>
                             <td>${{ item.2 }}</td>
                             <td>
-<<<<<<< HEAD
-                                {item.quantity}
-                                <a href="#"><img src="{% static 'images/' %}/update.png" height="15" width="15"></a>
-                                <a href="/remove"><img src="{% static 'images/' %}/trashcan.png"height="15" width="15"></a>
-=======
                                 {{ item.3 }}
                                 <form action="/update-cart" method="POST">
                                     {% csrf_token %}
@@ -53,7 +48,6 @@
                                         <input type="submit" value="Delete">
                                     </div>
                                 </form>
->>>>>>> 0d6ddd656d7ce9be98ebe6ae31e75e6ce97fdafb
                             </td>
                             <td>${{ item|last }}</td>
                         </tr>
@@ -65,7 +59,6 @@
                 </div>
                 <div id="cont-shop">
                     <a href="/shoes/category">Continue Shopping</a>
-                    <a href="/logout">|Log Out</a>
                 </div>
             </section>
         </div>
